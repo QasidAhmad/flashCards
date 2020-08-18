@@ -7,6 +7,7 @@ Created on Tue Aug 18 08:57:22 2020
 import json
 import random
 import time
+#4import timeit
 
 #print(random.randrange(4))
 
@@ -40,31 +41,41 @@ def getRandomAnswer(source, number):  #pulls a random answer from elsewhere on t
         return source[card]['card']['answer']
         
 def checkAnswer(answer):
+    startT=time.time()
     response=input("")
     while not(response.isdigit()):
         response=input("Please type a number: ")
+    questionT=time.time()-startT
     if int(response)==answer:
-        print("Correct!")
+        return 1, questionT
     else: 
-        print("Wrong!")
+        return 0, questionT
+    
 
 def askDifficulty():
-    response=input("How easy was that?\n0:Too easy\n3:Knew it\n7:Wasn't sure\n9: complete guess")
+    
+    response=input("How hard was that?\n0: Too easy, 3: Knew it, 7: Wasn't sure, 9: Complete guess: ")
     while not(response.isdigit()):
         response=input("Please type a number 0-9:")
+    
     response=int(response)
     if (response<0): response=0
     if (response>9): response=9
     return response
     
 
-startT=time.time()
+#
 
 position=askQuestion(questions,str(random.randrange(200)))
-questionT=time.time()-startT
-print(questionT)
-checkAnswer(position)
-print("that took you: ", end = '')
-print("%.1lf" % questionT, end = '')
-print(" seconds")
-print(askDifficulty())
+#
+#print(questionT)
+checkA=checkAnswer(position)
+
+difficulty = askDifficulty()
+
+if checkA[0]:
+    print("Correct!, it took you %.1f seconds" % checkA[1])
+else:
+    print("Wrong!")
+
+
