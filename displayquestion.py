@@ -50,7 +50,7 @@ def checkAnswer(answer):
 
 def askDifficulty():
     
-    response=input("How hard was that?\n0: Too easy, 3: Knew it, 7: Wasn't sure, 9: Complete guess: ")
+    response=input("How hard was that?\n0: Too easy, 3: Knew it, 7: Wasn't sure, 9: Complete guess ... ")
     while not(response.isdigit()):
         response=input("Please type a number 0-9:")
     
@@ -60,19 +60,22 @@ def askDifficulty():
     return response
     
 
-def questionWrapper(deck, number):
 
-    position=askQuestion(deck,number)
-
+    
+max=10
+for i in range(max):
+    
+    position=askQuestion(questions,str(random.randrange(200)))
     checkA=checkAnswer(position)
 
     difficulty = askDifficulty()
+    
+    #updateQuestionsHistory(deck,number,time.time(),checkA[0],checkA[1],difficulty)
 
     if checkA[0]:
         print("Correct!, it took you %.1f seconds" % checkA[1])
     else:
         print("Wrong!")
     
-    updateQuestionsHistory(deck,number,time.time(),checkA[0],checkA[1],difficulty)
-
-questionWrapper(questions,str(random.randrange(200)))
+    print("\ncompleted %d questions out of %d" % ((i+1), max))
+    print("________________________\n")
