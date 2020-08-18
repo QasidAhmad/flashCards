@@ -22,39 +22,15 @@ cardArray=[]
 with open('Capitals.csv') as csvfile:
     
     csvdata = csv.reader(csvfile)
-    #for row in csvdata:
-        #cardArray.append(row)
+
     for idx, row in enumerate(csvdata):
-        cardArray.append(row)
+        #cardArray.append(row)
         data[idx]={'card': {}, 'history' : {}}
         data[idx]['card']['type']='multi'
         data[idx]['card']['question']=row[0]
         data[idx]['card']['answer']=row[1]
         data[idx]['history']['created']=int(time.time())
         
-        #print(row)
-       # data[]
-        #print(', '.join(row))
-    
-print(cardArray[6][1])
-print(cardArray[7])
-
-
-
-#data[1]['card']['type']='multi'
-#data[1]['card']['question']='test'
-#data[1]['card']['answers']={1:'hi', 2:'testing', 3:1, 4:'boo!'}
-#data[1]['card']['answer']=3
-
-
-#data[1]['history']['created']=int(time.time())
-
-
-    
-	#data[rowindex]={'card': {"Question"=row[0],"Answer"=row[1]}, 'history' : {}}
-
-
-print(len(data[1]['card']))
 
 with open('data.json', 'w') as fp:
     json.dump(data, fp)
@@ -63,4 +39,3 @@ with open('data.json', 'r') as fp:
     data2 = json.load(fp)
     
     
-print(data2)
