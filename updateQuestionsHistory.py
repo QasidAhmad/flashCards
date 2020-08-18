@@ -22,18 +22,12 @@ def updateQuestionHistory(deck,questionHistory,correctness):
 	#create new response entry
     newResponse = {"correctness":1,"datestamp":datetime.datetime.now()}
     
+    #append new response to history
     questionHistory["Responses"].update(
             {questionHistory["NumOfResponses"]:newResponse})
                     #[("correctness",correctness),
                      #("timestamp",1)]})
-		#time of response
-	#questionHistory["Responses"]["NumOfResponses"]["timestamp"] = datetime.now()
-		#thinking period of response
-	#questionHistory["Responses"]["NumOfResponses"]["thinkingPeriod"] = thinkingPeriod
-		#correctness of response
-	#questionHistory["Responses"]["NumOfResponses"]["correctness"] = correctness
-		#difficult of response (to question)
-	#questionHistory["Responses"]["NumOfResponses"]["difficulty"] = difficulty
+
 
 
 #testing function
@@ -43,7 +37,7 @@ updateQuestionHistory(deck=0,questionHistory=test,correctness=1)
 #print(test)
 print(test["Responses"][1]["datestamp"])
 
-#if test["NumOfResponses"]== 1 and test["Responses"]["correctness"]==1:
-#	print("Test passed")
+if test["NumOfResponses"]== 1 and test["Responses"][1]["correctness"]==1:
+	print("Test passed")
 
-#else: print("Test failed")
+else: print("Test failed")
