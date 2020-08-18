@@ -1,8 +1,8 @@
-def SelectNextCard(questionsHistory)
+
+
+def selectNextCard(questionsHistory)
 {
-	#questionsHistory contains 
-	# timestamp,correctness,thinkingPeriod,difficulty
-	# for each question answered
+	# select next card based on history of reponses
 
 	return nextCardID
 }
