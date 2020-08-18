@@ -1,8 +1,8 @@
 import datetime 
 from datetime import timedelta
 
-#def updateQuestionHistory(deck,questionHistory,correctness,thinkingPeriod,difficulty):
-def updateQuestionHistory(deck,questionHistory,correctness):
+def updateQuestionHistory(deck,questionHistory,correctness,thinkingPeriod,difficulty):
+    
 
 	#correctness: 0 incorrect, 1 corect
 	#difficulty, value 0-9 0 is too easy 9 is too hard (integer for now but could be float later
@@ -21,7 +21,9 @@ def updateQuestionHistory(deck,questionHistory,correctness):
 
 	#create new response entry
     newResponse = {"correctness":correctness,
-                   "datestamp":datetime.datetime.now()}
+                   "datestamp":datetime.datetime.now(),
+                   "thinkingPeriod":thinkingPeriod,
+                   "difficulty":difficulty}
     
     
     
@@ -34,15 +36,17 @@ def updateQuestionHistory(deck,questionHistory,correctness):
 
 
 #testing function
-test = {"NumOfResponses": 0, "Responses":{0:{"correctness":0}}}
-updateQuestionHistory(deck=0,questionHistory=test,correctness=1)
+test = {"NumOfResponses": 0, "Responses":{0:{"correctness":0,"thinkingPeriod":0,"difficulty":0}}}
+updateQuestionHistory(deck=0,questionHistory=test,correctness=1,thinkingPeriod=1,difficulty=1)
 
 #print(test)
-print(test["Responses"][1]["datestamp"])
+print(test["Responses"][1])
 
 if (test["NumOfResponses"]== 1 and 
     test["Responses"][1]["correctness"]==1 and 
-    test["Responses"][1]["datestamp"] == datetime.datetime.now() ) :
-	print("Test passed")
+    test["Responses"][1]["datestamp"] == datetime.datetime.now()  and
+	test["Responses"][1]["thinkingPeriod"] == 1 and
+    test["Responses"][1]["difficulty"] == 1):
+    print("Test passed")
 
 else: print("Test failed")
