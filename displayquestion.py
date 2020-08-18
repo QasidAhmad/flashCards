@@ -47,16 +47,14 @@ def checkAnswer(answer):
         response=input("Please type a number: ")
     questionT=time.time()-startT
     if int(response)==answer:
-        print("Correct!")
         return 1, questionT
     else: 
-        print("Wrong!")
         return 0, questionT
     
 
 def askDifficulty():
     
-    response=input("How easy was that?\n0:Too easy\n3:Knew it\n7:Wasn't sure\n9: complete guess")
+    response=input("How hard was that?\n0: Too easy, 3: Knew it, 7: Wasn't sure, 9: Complete guess: ")
     while not(response.isdigit()):
         response=input("Please type a number 0-9:")
     
@@ -73,11 +71,11 @@ position=askQuestion(questions,str(random.randrange(200)))
 #print(questionT)
 checkA=checkAnswer(position)
 
-print(askDifficulty())
+difficulty = askDifficulty()
+
+if checkA[0]:
+    print("Correct!, it took you %.1f seconds" % checkA[1])
+else:
+    print("Wrong!")
 
 
-
-
-print("that took you: ", end = '')
-print("%.1lf" % questionT, end = '')
-print(" seconds")
