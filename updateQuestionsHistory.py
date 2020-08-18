@@ -20,13 +20,16 @@ def updateQuestionHistory(deck,questionHistory,correctness):
     questionHistory["NumOfResponses"] = questionHistory["NumOfResponses"] +1
 
 	#create new response entry
-    newResponse = {"correctness":1,"datestamp":datetime.datetime.now()}
+    newResponse = {"correctness":correctness,
+                   "datestamp":datetime.datetime.now()}
+    
+    
     
     #append new response to history
     questionHistory["Responses"].update(
             {questionHistory["NumOfResponses"]:newResponse})
-                    #[("correctness",correctness),
-                     #("timestamp",1)]})
+                     
+    print(questionHistory["Responses"][1]["correctness"])
 
 
 
@@ -37,7 +40,9 @@ updateQuestionHistory(deck=0,questionHistory=test,correctness=1)
 #print(test)
 print(test["Responses"][1]["datestamp"])
 
-if test["NumOfResponses"]== 1 and test["Responses"][1]["correctness"]==1:
+if (test["NumOfResponses"]== 1 and 
+    test["Responses"][1]["correctness"]==1 and 
+    test["Responses"][1]["datestamp"] == datetime.datetime.now() ) :
 	print("Test passed")
 
 else: print("Test failed")
