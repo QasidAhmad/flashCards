@@ -7,38 +7,34 @@ Created on Tue Aug 18 08:57:22 2020
 import json
 import random
 import time
-#4import timeit
-
-#print(random.randrange(4))
-
-
+from updateQuestionsHistory import updateQuestionsHistory
 
 with open('data.json', 'r') as fp:
     questions = json.load(fp)
     
 
     
-def askQuestion(source, number):  #interface after card selector
-    print(source['pack']['baseQ'], end = '')
-    print(source[number]['card']['question'], end = '')
+def askQuestion(deck, number):  #interface after card selector
+    print(deck['deck']['baseQ'], end = '')
+    print(deck[number]['card']['question'], end = '')
     print(':')
     position = random.randrange(4)
     for i in range(4):
         print(i+1, end = '')
         print(": ", end = '')
         if (i == position):
-            print(source[number]['card']['answer'])
+            print(deck[number]['card']['answer'])
         else:
-            print(getRandomAnswer(source, number))
+            print(getRandomAnswer(deck, number))
     return(position+1)
     
-def getRandomAnswer(source, number):  #pulls a random answer from elsewhere on the card to fill out the multiple choice
-    card=random.choice(list(source.keys()))
+def getRandomAnswer(deck, number):  #pulls a random answer from elsewhere on the card to fill out the multiple choice
+    card=random.choice(list(deck.keys()))
     #print(card)
     if ((card==number) or not(card.isdigit())):  #only accept answer if its a diferent, valid, card
-        return getRandomAnswer(source, number)
+        return getRandomAnswer(deck, number)
     else:
-        return source[card]['card']['answer']
+        return deck[card]['card']['answer']
         
 def checkAnswer(answer):
     startT=time.time()
@@ -64,18 +60,19 @@ def askDifficulty():
     return response
     
 
-#
+def questionWrapper(deck, number):
 
-position=askQuestion(questions,str(random.randrange(200)))
-#
-#print(questionT)
-checkA=checkAnswer(position)
+    position=askQuestion(deck,number)
 
-difficulty = askDifficulty()
+    checkA=checkAnswer(position)
 
-if checkA[0]:
-    print("Correct!, it took you %.1f seconds" % checkA[1])
-else:
-    print("Wrong!")
+    difficulty = askDifficulty()
 
+    if checkA[0]:
+        print("Correct!, it took you %.1f seconds" % checkA[1])
+    else:
+        print("Wrong!")
+    
+    updateQuestionsHistory(deck,number,time.time(),checkA[0],checkA[1],difficulty)
 
+questionWrapper(questions,str(random.randrange(200)))
