@@ -16,7 +16,7 @@ data={}
 
 data['deck']={}
 data['deck']['baseQ']="What is the Capital of "  #precedes every question in the list
-data['deck']['category']='Geography' #we need to come up with a system for categories
+data['deck']['category']='Geography' #we need to come up with a system for categories someday
 data['deck']['Title']='Capital Cities of the World'
 
 cardArray=[]

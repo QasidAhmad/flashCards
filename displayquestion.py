@@ -4,15 +4,9 @@ Created on Tue Aug 18 08:57:22 2020
 
 @author: Woody
 """
-import json
+
 import random
 import time
-from updateQuestionsHistory import updateQuestionsHistory
-
-with open('data.json', 'r') as fp:
-    questions = json.load(fp)
-    
-
     
 def askQuestion(deck, number):  #interface after card selector
     print(deck['deck']['baseQ'], end = '')
@@ -39,8 +33,8 @@ def getRandomAnswer(deck, number):  #pulls a random answer from elsewhere on the
 def checkAnswer(answer):
     startT=time.time()
     response=input("")
-    while not(response.isdigit()):
-        response=input("Please type a number: ")
+    while (not(response.isdigit()) or (int(response))>4 or (int(response))<1):
+        response=input("Please type a valid answer number: ")
     questionT=time.time()-startT
     if int(response)==answer:
         return 1, questionT
@@ -51,7 +45,7 @@ def checkAnswer(answer):
 def askDifficulty():
     
     response=input("How hard was that?\n0: Too easy, 3: Knew it, 7: Wasn't sure, 9: Complete guess ... ")
-    while not(response.isdigit()):
+    while (not(response.isdigit()) or (int(response))>9 or (int(response))<0):
         response=input("Please type a number 0-9:")
     
     response=int(response)
@@ -62,20 +56,3 @@ def askDifficulty():
 
 
     
-max=10
-for i in range(max):
-    
-    position=askQuestion(questions,str(random.randrange(200)))
-    checkA=checkAnswer(position)
-
-    difficulty = askDifficulty()
-    
-    #updateQuestionsHistory(deck,number,time.time(),checkA[0],checkA[1],difficulty)
-
-    if checkA[0]:
-        print("Correct!, it took you %.1f seconds" % checkA[1])
-    else:
-        print("Wrong!")
-    
-    print("\ncompleted %d questions out of %d" % ((i+1), max))
-    print("________________________\n")
