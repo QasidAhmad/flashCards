@@ -11,6 +11,9 @@ import sendDeck
 
 deck = sendDeck.returnDeck()
 
-print(deck)
+#print(deck)
 
-print(type(deck))
+#print(type(deck))
+
+#print(deck.keys())
+#print(deck['1']['history'])
