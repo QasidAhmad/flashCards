@@ -1,6 +1,9 @@
 import random
 
-def selectNextCard(questionsHistory):
+#def selectNextCard(questionsHistory):
+#        selectNextCard(questionsHistory, "default"):
+
+def selectNextCard(deck, method):
 
 	# select next card based on history of reponses
     
