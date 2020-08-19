@@ -20,7 +20,7 @@ data['deck']['category']='Geography' #we need to come up with a system for categ
 data['deck']['Title']='Capital Cities of the World'
 
 cardArray=[]
-with open('Capitals.csv') as csvfile:
+with open('Countries.csv') as csvfile:
     
     csvdata = csv.reader(csvfile)
 
