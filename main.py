@@ -22,23 +22,23 @@ def main():
         
     for Quest in range(totalCards):
         
-        enterToContinue()
+        enterToContinue()  #gives user chance to have a break or exit
         
         #get next question to be asked:
         nextQ=str(random.randrange(200))   #select card
         ###############################
         
-        position=askQuestion(questions,nextQ) #present card position is the position of the correct answer out of 4
+        position=askQuestion(questions,nextQ) #prsents card to user and returns the postition of the correct answer (1-4)
         
-        checkA=checkAnswer(position)     #checks answer response and time to answer
+        checkA=checkAnswer(position)     #checks whether answer response is correct and time to answer
     
         difficulty = askDifficulty()     #difficulty response
               
-        giveFeedback(checkA,questions[nextQ]["card"]["answer"])
+        giveFeedback(checkA,questions[nextQ]["card"]["answer"])  #gives feedback to the user
             
         #updateQuestionsHistory(deck,number,time.time(),checkA[0],checkA[1],difficulty)
         
-        showProgress(Quest, totalCards)
+        showProgress(Quest, totalCards) #simple progress bar
         
     #end session presented here, what to display, what options should be given?
     endSession(totalCards)  
