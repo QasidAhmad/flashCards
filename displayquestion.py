@@ -9,17 +9,18 @@ import random
 import time
     
 def askQuestion(deck, number):  #interface after card selector
-    print(deck['deck']['baseQ'], end = '')
-    print(deck[number]['card']['question'], end = '')
+    print(deck['meta']['baseQ'], end = '')
+    print(deck['deck'][number]['card']['question'], end = '')
+    print(deck['meta']['followQ'], end = '')
     print(':')
     position = random.randrange(4)
     for i in range(4):
         print(i+1, end = '')
         print(": ", end = '')
         if (i == position):
-            print(deck[number]['card']['answer'])
+            print(deck['deck'][number]['card']['answer'])
         else:
-            print(getRandomAnswer(deck, number))
+            print(getRandomAnswer(deck['deck'], number))
     return(position+1)
     
 def getRandomAnswer(deck, number):  #pulls a random answer from elsewhere on the card to fill out the multiple choice
@@ -83,11 +84,11 @@ def numberOfCards(questions):
     return totalCards
 
 def enterToContinue():  #gives user chance to have a break or exit
-    print('\nPress "Enter" to continue')
+    print('\n\nPress "Enter" to continue')
     checkexit=input("")  #gives a chance to exit early
     if checkexit=="x":
         print('Goodbye...')
-        return
+        raise SystemExit
     
 def giveFeedback(checkA, answer):
     if checkA[0]:
