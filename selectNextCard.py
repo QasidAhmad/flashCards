@@ -30,7 +30,7 @@ def selectNextCard(deck, method="default"):
                         recallTime=deck['deck'][card]['history']['nextRecall']
                         mostOverDue=card
             if not(mostOverDue==""):
-                return card
+                return mostOverDue
         #then find card which will become overdue soonest... (makes last section a little redundent)
         for level in range(1,maxBoxes):
             mostOverDue=""
@@ -41,7 +41,7 @@ def selectNextCard(deck, method="default"):
                         recallTime=deck['deck'][card]['history']['nextRecall']
                         mostOverDue=card
             if not(mostOverDue==""):
-                return card
+                return mostOverDue
             
     elif (method=="newlast"):
         
@@ -76,10 +76,10 @@ def selectNextCard(deck, method="default"):
                         recallTime=deck['deck'][card]['history']['nextRecall']
                         mostOverDue=card
             if not(mostOverDue==""):
-                return card
+                return mostOverDue
             
-       # nextCardID="1"
-    
+    print("failed to find an appropriate card")
+    nextCardID="1" #if all others fail
     return nextCardID  #returns string of next card ID
 
 #test =1 
