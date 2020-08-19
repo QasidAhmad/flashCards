@@ -7,6 +7,7 @@ Created on Tue Aug 18 08:57:22 2020
 
 import random
 import time
+from generatejson import createFromCSV
     
 def askQuestion(deck, number):  #interface after card selector
     print(deck['meta']['baseQ'], end = '')
@@ -67,12 +68,19 @@ def initialiseSession():
         print(idx+1, end = '')
         print(": ", end = '')
         print(file[8:-5])  #numberical factors to remove "./Decks\" beginning and ".json" end
+    print(idx+2, end = '')
+    print(": ", end = '')
+    print("Import new deck from CSV")
     response="0"    
-    while (not(response.isdigit()) or (int(response))>len(decksAvailable) or (int(response))<1):
-        response=input("Please type a number between 1 and %d: " % len(decksAvailable))
-    with open(decksAvailable[int(response)-1], 'r') as fp:
-        questions = json.load(fp)
-    return questions
+    while (not(response.isdigit()) or (int(response))>(len(decksAvailable)+1) or (int(response))<1):
+        response=input("Please type a number between 1 and %d: " % (len(decksAvailable)+1))
+    if (int(response)==len(decksAvailable)+1):
+        createFromCSV()
+        return initialiseSession()
+    else:
+        with open(decksAvailable[int(response)-1], 'r') as fp:
+            questions = json.load(fp)
+        return questions
         
 def numberOfCards(questions):    
     print("\nYou last accessed this deck X days/weeks ago. There are %d cards in this deck, X are new to you, Y are overdue. (other stats about the deck here). How many do you want to look at in this session?" % (len(questions)-1))

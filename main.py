@@ -16,11 +16,11 @@ from displayquestion import *
 def main():
     
     
-    questions = initialiseSession()
+    deck = initialiseSession()
     
     try:
         while True:
-            totalCards = numberOfCards(questions['deck'])
+            totalCards = numberOfCards(deck['deck'])
             #above is select session
             
                 
@@ -29,16 +29,16 @@ def main():
                 enterToContinue()  #gives user chance to have a break or exit
                 
                 #get next question to be asked:
-                nextQ=str(selectNextCard.selectNextCard(0))   #select card #todo replace argument (0) with history
+                nextQ=str(selectNextCard.selectNextCard(deck))   #select card #todo replace argument (0) with history
                 ###############################
                 
-                position=askQuestion(questions,nextQ) #prsents card to user and returns the postition of the correct answer (1-4)
+                position=askQuestion(deck,nextQ) #prsents card to user and returns the postition of the correct answer (1-4)
                 
                 checkA=checkAnswer(position)     #checks whether answer response is correct and time to answer
             
                 difficulty = askDifficulty()     #difficulty response
                       
-                giveFeedback(checkA,questions['deck'][nextQ]["card"]["answer"])  #gives feedback to the user
+                giveFeedback(checkA,deck['deck'][nextQ]["card"]["answer"])  #gives feedback to the user
                     
                 #updateQuestionsHistory(deck,number,time.time(),checkA[0],checkA[1],difficulty)
                 

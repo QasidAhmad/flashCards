@@ -4,8 +4,9 @@
 	{
 		"Title":
 		"baseQ":  #common part of the question for each card
+		"followQ":  #common part of the question for each card
 		"category":   #not used yet
-		"unique ID"  #used to reference between decks
+		"ID"  #Unique used to reference between decks, should be the file name!
 	},
 	"deck"  #contains each card as a seperate item, generally numbered but should be able to handle any naming system
 	{
@@ -46,8 +47,8 @@
 					"2": {},
 					
 				}
-			  }
 			}
+		}
 		"1":{},  #more cards with same structure as above
 		"2":{},
 		"3":{}
