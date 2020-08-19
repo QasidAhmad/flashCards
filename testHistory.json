@@ -1,0 +1,15 @@
+{
+  "created": 0,
+  "nextRecall": 0,
+  "numOfResponses": 0,
+  "responses": [
+    {
+      "0": {
+        "timestamp": 0,
+        "correctness": 0,
+        "thinkingPeriod": 0,
+        "difficulty": 0
+      }
+    }
+  ]
+}
