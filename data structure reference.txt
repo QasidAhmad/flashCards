@@ -1,0 +1,55 @@
+#json/py-dictionary data structure
+{
+	"meta":  #contains data relevant to whole deck
+	{
+		"Title":
+		"baseQ":  #common part of the question for each card
+		"category":   #not used yet
+		"unique ID"  #used to reference between decks
+	},
+	"deck"  #contains each card as a seperate item, generally numbered but should be able to handle any naming system
+	{
+		"0":
+		{
+			"card":  #contains the information that the user sees about the card
+			{
+				"type":    #currently just "multi" for multiple choice, could be other types
+				"question":
+				"answer":
+				"answers": #if there are some incorrect answers specified they go here, else others chosen randomly from the deck
+			}
+			
+			"prerequesites":  #if some cards need to be learned before this one
+			{
+				"0" #list of cards that need to be learned
+				{
+					"deck" #that decks unique ID
+					"card reference"				
+				}
+			
+			}
+		
+			"history":  #contains all access history for this card
+			{
+				"created": 
+				"nextRecall": 
+				"responses": #gives details of every response made so far
+				{
+					"0": 
+					{
+						"timestamp":
+						"correctness":
+						"thinkingPeriod":
+						"difficulty":
+					},
+					"1": {}, #more responses with same structure as above
+					"2": {},
+					
+				}
+			  }
+			}
+		"1":{},  #more cards with same structure as above
+		"2":{},
+		"3":{}
+	}
+}
