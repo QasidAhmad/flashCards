@@ -9,7 +9,7 @@ Created on Wed Aug 19 10:20:26 2020
 
 import json
 
-with open("Decks/capitals-Q.json") as deck_json:
+with open("Decks/capitals.json") as deck_json:
     deck_dict = json.load(deck_json)
     #print(deck_dict) # read success 
     
