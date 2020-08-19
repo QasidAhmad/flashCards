@@ -20,7 +20,7 @@ def main():
     
     try:
         while True:
-            totalCards = numberOfCards(questions)
+            totalCards = numberOfCards(questions['deck'])
             #above is select session
             
                 
@@ -38,7 +38,7 @@ def main():
             
                 difficulty = askDifficulty()     #difficulty response
                       
-                giveFeedback(checkA,questions[nextQ]["card"]["answer"])  #gives feedback to the user
+                giveFeedback(checkA,questions['deck'][nextQ]["card"]["answer"])  #gives feedback to the user
                     
                 #updateQuestionsHistory(deck,number,time.time(),checkA[0],checkA[1],difficulty)
                 
