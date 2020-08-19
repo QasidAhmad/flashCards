@@ -6,8 +6,8 @@ Created on Tue Aug 18 16:01:25 2020
 
 organises program structure and flow
 """
-import random
-import selectNextCard as selectNextCard
+
+from selectNextCard import selectNextCard
 
 #from updateQuestionsHistory import updateQuestionHistory
 from displayquestion import *
@@ -29,7 +29,7 @@ def main():
                 enterToContinue()  #gives user chance to have a break or exit
                 
                 #get next question to be asked:
-                nextQ=str(selectNextCard(deck))   #select card #todo replace argument (0) with history
+                nextQ=selectNextCard(deck,"newlast")   #select card #todo replace argument (0) with history
                 ###############################
                 
                 position=askQuestion(deck,nextQ) #prsents card to user and returns the postition of the correct answer (1-4)
