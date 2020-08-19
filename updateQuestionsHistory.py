@@ -21,8 +21,21 @@ def updateBox(currentBox,maxBoxes,correctness, method="default"):
         print("Error: Unknown box updating method")
         
     return updatedBox
-                
-       
+
+
+def getNextRecallInterval (box):
+    boxIntervals = [timedelta(seconds=5),
+                    timedelta(seconds=25),
+                    timedelta(minutes=2),
+                    timedelta(minutes=10),
+                    timedelta(hours=1),
+                    timedelta(hours=5),
+                    timedelta(days=5)]
+    
+    return  boxIntervals[box]
+    
+    
+
 def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty):
     
 
@@ -40,12 +53,10 @@ def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty
     #update box number
     maxBoxes = 8 # todo: refactor to avoid this magic number
     questionHistory["box"] = updateBox(questionHistory["box"],maxBoxes,correctness)
-  
-	
+  	
     #update next recall time
-	#updateNextRecall(questionHistory,box)
-
-	
+    nextRecallInterval = getNextRecallInterval(questionHistory["box"])	
+    deck['deck'][str(questionID)]['history']['nextRecall'] = datetime.datetime.now() + nextRecallInterval
 
 	#create new response entry
     newResponse = {"correctness":correctness,
@@ -72,8 +83,13 @@ caps_deck=sendDeck.returnDeck()#get deck
 
 updateQuestionHistory(deck=caps_deck,questionID=1,correctness=1,thinkingPeriod=1,difficulty=1)
 
+expectedNextRecall = caps_deck["deck"]["1"]["history"]["responses"]["0"]["datestamp"] + timedelta(seconds=5)
+print(expectedNextRecall)
+print(caps_deck["deck"]["1"]["history"]["nextRecall"])
+
 if (caps_deck["deck"]["1"]["history"]["responses"]["0"]["correctness"]==1 and
-    caps_deck["deck"]["1"]["history"]["box"]==1):
+    caps_deck["deck"]["1"]["history"]["box"]==1 and
+    caps_deck["deck"]["1"]["history"]["nextRecall"] == expectedNextRecall):
     print("Test passed")
 
 else: print("Test failed")
