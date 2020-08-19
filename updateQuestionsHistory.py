@@ -44,7 +44,7 @@ def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty
         
     #else:
         #if there are responses just update it 
-        deck[str(questionID)]['history']['responses'].update(
+        deck['deck'][str(questionID)]['history']['responses'].update(
                 {str(responseIndex):newResponse})
     
     #checking it all looks good               

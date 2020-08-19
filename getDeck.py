@@ -18,9 +18,9 @@ deck = sendDeck.returnDeck()
 #print(deck.keys())
 #print(deck['1']['history'])
 
-history = deck['1']['history']
+history = deck["deck"]["1"]["history"]
 
-if "created" in history:
+if "responses" in history:
     print("key present")
     
 else: print("key missing")
