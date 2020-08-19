@@ -1,3 +1,4 @@
+import json
 import datetime 
 from datetime import timedelta
 
@@ -36,11 +37,14 @@ def updateQuestionHistory(deck,questionHistory,correctness,thinkingPeriod,diffic
 
 
 #testing function
-test = {"NumOfResponses": 0, "Responses":{0:{"correctness":0,"thinkingPeriod":0,"difficulty":0}}}
+with open("testHistory.json") as json_file:
+    test = json.load(json_file)
+    print(test["Responses"])
+#test = {"NumOfResponses": 0, "Responses":{0:{"correctness":0,"thinkingPeriod":0,"difficulty":0}}}
 updateQuestionHistory(deck=0,questionHistory=test,correctness=1,thinkingPeriod=1,difficulty=1)
 
 #print(test)
-print(test["Responses"][1])
+#print(test["Responses"][1])
 
 if (test["NumOfResponses"]== 1 and 
     test["Responses"][1]["correctness"]==1 and 
