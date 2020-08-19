@@ -1,8 +1,9 @@
 import json
 import datetime 
 from datetime import timedelta
+import sendDeck
 
-def updateQuestionHistory(deck,questionHistory,correctness,thinkingPeriod,difficulty):
+def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty):
     
 
 	#correctness: 0 incorrect, 1 corect
@@ -11,7 +12,11 @@ def updateQuestionHistory(deck,questionHistory,correctness,thinkingPeriod,diffic
 	# Takes new question response data (timestamp,correctness,thinkingPeriod,difficulty)
 	# and updates question history 
 
-	#update box number
+	
+    # get section of Deck (questions history) to update
+    questionHistory = deck[str(questionID)]['history']
+    
+    #update box number
 	#updateBox(questionHistory,correctness)
 
 	#update next recall time
@@ -33,15 +38,15 @@ def updateQuestionHistory(deck,questionHistory,correctness,thinkingPeriod,diffic
             {questionHistory["NumOfResponses"]:newResponse})
                      
     print(questionHistory["Responses"][1]["correctness"])
-
+    
 
 
 #testing function
-with open("testHistory.json") as json_file:
-    test = json.load(json_file)
-    print(test["Responses"])
-#test = {"NumOfResponses": 0, "Responses":{0:{"correctness":0,"thinkingPeriod":0,"difficulty":0}}}
-updateQuestionHistory(deck=0,questionHistory=test,correctness=1,thinkingPeriod=1,difficulty=1)
+caps_deck=sendDeck.returnDeck()#get deck 
+#print(caps_deck)#ok
+
+test = {"NumOfResponses": 0, "Responses":{0:{"correctness":0,"thinkingPeriod":0,"difficulty":0}}}
+updateQuestionHistory(deck=caps_deck,questionID=1,correctness=1,thinkingPeriod=1,difficulty=1)
 
 #print(test)
 #print(test["Responses"][1])
