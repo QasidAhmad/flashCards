@@ -14,7 +14,9 @@ def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty
 
 	
     # get section of Deck (questions history) to update
-    questionHistory = deck[str(questionID)]['history']
+    questionHistory = deck['deck'][str(questionID)]['history']
+    
+    #history = deck['deck']['1']['history']
     
     #update box number
 	#updateBox(questionHistory,correctness)
@@ -36,11 +38,11 @@ def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty
     responseIndex = len(questionHistory["responses"])
     
         # if there are no responses create a new first response (deleting whatever was there before by default because cant update if existing type doesnt match)
-    if responseIndex == 0:
-        del deck[str(questionID)]['history']['responses']
-        deck[str(questionID)]['history'].update({'responses':newResponse})
+    #if responseIndex == 0:
+       # del deck[str(questionID)]['history']['responses']
+        #deck[str(questionID)]['history'].update({'responses':newResponse})
         
-    else:
+    #else:
         #if there are responses just update it 
         deck[str(questionID)]['history']['responses'].update(
                 {str(responseIndex):newResponse})
@@ -52,18 +54,20 @@ def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty
 
 #testing function
 caps_deck=sendDeck.returnDeck()#get deck 
+print(deck['deck']['1']['history'])
+
 #print(caps_deck)#ok
 
 #test = {"NumOfResponses": 0, "responses":{0:{"correctness":0,"thinkingPeriod":0,"difficulty":0}}}
-updateQuestionHistory(deck=caps_deck,questionID=1,correctness=1,thinkingPeriod=1,difficulty=1)
+#updateQuestionHistory(deck=caps_deck,questionID=1,correctness=1,thinkingPeriod=1,difficulty=1)
 
 #print(test)
 #print(test["Responses"][1])
 
-if (caps_deck["history"]["responses"]["0"]["correctness"]==1:
+#if (caps_deck["history"]["responses"]["0"]["correctness"]==1:
     #test["Responses"][1]["datestamp"] == datetime.datetime.now()  and
 	#test["Responses"][1]["thinkingPeriod"] == 1 and
     #test["Responses"][1]["difficulty"] == 1):
-    print("Test passed")
+    #print("Test passed")
 
-else: print("Test failed")
+#else: print("Test failed")
