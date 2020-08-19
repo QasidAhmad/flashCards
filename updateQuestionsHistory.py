@@ -37,37 +37,21 @@ def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty
         #get respone index
     responseIndex = len(questionHistory["responses"])
     
-        # if there are no responses create a new first response (deleting whatever was there before by default because cant update if existing type doesnt match)
-    #if responseIndex == 0:
-       # del deck[str(questionID)]['history']['responses']
-        #deck[str(questionID)]['history'].update({'responses':newResponse})
-        
-    #else:
-        #if there are responses just update it 
-        deck['deck'][str(questionID)]['history']['responses'].update(
+        #update response at index position
+    deck['deck'][str(questionID)]['history']['responses'].update(
                 {str(responseIndex):newResponse})
     
     #checking it all looks good               
-    deck[str(questionID)]['history']['responses']
+    #deck['deck'][str(questionID)]['history']['responses']
     
 
 
 #testing function
 caps_deck=sendDeck.returnDeck()#get deck 
-print(deck['deck']['1']['history'])
 
-#print(caps_deck)#ok
+updateQuestionHistory(deck=caps_deck,questionID=1,correctness=1,thinkingPeriod=1,difficulty=1)
 
-#test = {"NumOfResponses": 0, "responses":{0:{"correctness":0,"thinkingPeriod":0,"difficulty":0}}}
-#updateQuestionHistory(deck=caps_deck,questionID=1,correctness=1,thinkingPeriod=1,difficulty=1)
+if caps_deck["deck"]["1"]["history"]["responses"]["0"]["correctness"]==1:
+    print("Test passed")
 
-#print(test)
-#print(test["Responses"][1])
-
-#if (caps_deck["history"]["responses"]["0"]["correctness"]==1:
-    #test["Responses"][1]["datestamp"] == datetime.datetime.now()  and
-	#test["Responses"][1]["thinkingPeriod"] == 1 and
-    #test["Responses"][1]["difficulty"] == 1):
-    #print("Test passed")
-
-#else: print("Test failed")
+else: print("Test failed")

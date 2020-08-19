@@ -20,6 +20,8 @@ deck = sendDeck.returnDeck()
 
 history = deck["deck"]["1"]["history"]
 
+print(history["responses"])
+
 if "responses" in history:
     print("key present")
     
