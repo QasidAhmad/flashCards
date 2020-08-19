@@ -41,6 +41,7 @@ def createFromCSV():
             data['deck'][idx]['card']['answer']=row[1]
             data['deck'][idx]['history']['created']=int(time.time())
             data['deck'][idx]['history']['nextRecall']=int(time.time())
+            data['deck'][idx]['history']['box']=0
             data['deck'][idx]['history']['responses']={}
     
     response=input('Please enter a Title for the deck: ')
