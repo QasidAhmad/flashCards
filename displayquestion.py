@@ -57,8 +57,8 @@ import json
 import glob
 
 def initialiseSession():
-    print("Welcome Back! \n Please choose the deck you want to learn today:")
     
+    print("Welcome Back! \n Please choose the deck you want to learn today:")
     
     decksAvailable=glob.glob('./Decks/*.json')
     
@@ -71,14 +71,23 @@ def initialiseSession():
         response=input("Please type a number between 1 and %d: " % len(decksAvailable))
     with open(decksAvailable[int(response)-1], 'r') as fp:
         questions = json.load(fp)
-    
+    return questions
+        
+def numberOfCards(questions):    
     print("\nYou last accessed this deck X days/weeks ago. There are %d cards in this deck, X are new to you, Y are overdue. (other stats about the deck here). How many do you want to look at in this session?" % (len(questions)-1))
     totalCards="-1"  
     while (not(totalCards.isdigit()) or (int(totalCards))>(len(questions)-1) or (int(totalCards))<0):
         totalCards=input("Please type a number between 1 and %d: " % (len(questions)-1))
         
     totalCards=int(totalCards)
-    return totalCards, questions
+    return totalCards
+
+def enterToContinue():  #gives user chance to have a break or exit
+    print('\nPress "Enter" to continue')
+    checkexit=input("")  #gives a chance to exit early
+    if checkexit=="x":
+        print('Goodbye...')
+        return
     
 def giveFeedback(checkA, answer):
     if checkA[0]:
@@ -88,21 +97,34 @@ def giveFeedback(checkA, answer):
         print("The Correct Answer was ", end = '')
         print(answer)
         
-def showProgress(Quest, totalCards):
-        
+def showProgress(Quest, totalCards):  #prints progress bar to screen
+    length=40
     print("\ncompleted %d questions out of %d" % ((Quest+1), totalCards))
-    for j in range(40):
-        if (j > ((Quest+1) * 40 /totalCards)):
+    for j in range(length):
+        if (j > ((Quest+1) * length /totalCards)):
             print("_", end = '')  #print a progress bar
         else:
             print("█", end = '')
-            
-def endSession(totalCards):
+   
+class newSession(Exception): pass
+         
+def endSession(totalCards):  #will show how well user did and give options to continue
     print("\n you got X correct out of %d cards" % totalCards) 
     
-def enterToContinue():  #gives user chance to have a break or exit
-    print('\nPress "Enter" to continue')
-    checkexit=input("")  #gives a chance to exit early
-    if checkexit=="x":
-        print('Goodbye...')
-        return
+    print("\nWhat shall we do now?")
+    print("1: Do some more cards?")
+    print("2: New Deck?")
+    print("3: Exit")
+    
+    response=input("")
+    while (not(response.isdigit()) or (int(response)>3) or (int(response))<1):
+        response=input("Please type a number between 1 and 3: ")
+    
+    if (response=="3"): 
+        raise SystemExit
+    elif (response=="2"): 
+        raise newSession
+    else:    
+        pass
+        # goes back to same while loop automatically
+    
