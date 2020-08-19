@@ -20,7 +20,7 @@ deck = sendDeck.returnDeck()
 
 history = deck['1']['history']
 
-if "createdd" in history:
+if "created" in history:
     print("key present")
     
 else: print("key missing")
