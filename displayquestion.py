@@ -63,7 +63,7 @@ def initialiseSession():
     print("Welcome Back! \n Please choose the deck you want to learn today:")
     
     decksAvailable=glob.glob('./Decks/*.json')
-    
+    idx=-1
     for idx, file in enumerate(decksAvailable):
         print(idx+1, end = '')
         print(": ", end = '')
