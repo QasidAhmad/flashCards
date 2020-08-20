@@ -29,3 +29,5 @@ Desired changes:
 
 additional end session condition when all the cards required to be recalled have already been reviewed i.e. no call recall times are due
 adding a heirarchy dependence so come cards will not be reviewed until their prerequesite cards are above a certail level
+keeping track of progress of a session to sey you got X number correct
+statistics about the deck including how many are overdue
