@@ -1,3 +1,4 @@
+# testing conflict
 # -*- coding: utf-8 -*-
 """
 Created on Tue Aug 18 16:01:25 2020
@@ -21,7 +22,8 @@ def main():
     try:
         while True:
             totalCards = numberOfCards(deck['deck'])
-            #above is select details of the session
+
+            #above is select session #Q conflict
             
                 
             for Quest in range(totalCards):
