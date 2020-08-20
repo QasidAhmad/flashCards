@@ -136,6 +136,7 @@ def endSession(totalCards):  #will show how well user did and give options to co
     elif (response=="2"): 
         raise newSession
     else:    
+        
         pass
         # goes back to same while loop automatically
     
