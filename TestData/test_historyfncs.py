@@ -7,9 +7,9 @@ Created on Thu Aug 20 11:20:12 2020
 import os
 import sys
 import random
-import datetime
+
 sys.path.append(os.path.abspath('../'))
-from generatejson import *
+#from generatejson import *
 from updateQuestionHistory import *
 
 
