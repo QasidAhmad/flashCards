@@ -1,7 +1,9 @@
 import json
 import datetime 
+import time
 from datetime import timedelta
-import sendDeck
+#import sendDeck
+from generatejson import createJSON
 
 def updateBox(currentBox,maxBoxes,correctness, method="default"):
     if method == "default":
@@ -16,7 +18,7 @@ def updateBox(currentBox,maxBoxes,correctness, method="default"):
                     updatedBox = currentBox + 1
             
             elif correctness == 0:
-                currentBox = 0
+                updatedBox = 0
     else: 
         print("Error: Unknown box updating method")
         
@@ -36,7 +38,7 @@ def getNextRecallInterval (box):
     
     
 
-def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty):
+def updateQuestionHistory(deck,file,questionID, correctness,thinkingPeriod,difficulty):
     
 
 	#correctness: 0 incorrect, 1 corect
@@ -63,7 +65,7 @@ def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty
 
 	#create new response entry
     newResponse = {"correctness":correctness,
-                   "datestamp":datetime.datetime.now(),
+                   "datestamp":time.time(),
                    "thinkingPeriod":thinkingPeriod,
                    "difficulty":difficulty}
     
@@ -76,21 +78,23 @@ def updateQuestionHistory(deck,questionID, correctness,thinkingPeriod,difficulty
     deck['deck'][str(questionID)]['history']['responses'].update(
                 {str(responseIndex):newResponse})
     
+    createJSON(file,deck)
+    
     #checking it all looks good               
     #deck['deck'][str(questionID)]['history']['responses']
     
 
 
 #testing function
-caps_deck=sendDeck.returnDeck()#get deck 
+#caps_deck=sendDeck.returnDeck()#get deck 
 
-updateQuestionHistory(deck=caps_deck,questionID=1,correctness=1,thinkingPeriod=1,difficulty=1)
+#updateQuestionHistory(deck=caps_deck,"file",questionID=1,correctness=1,thinkingPeriod=1,difficulty=1)
 
 
-print(caps_deck["deck"]["1"]["history"]["nextRecall"])
-
-if  (caps_deck["deck"]["1"]["history"]["responses"]["0"]["correctness"]==1 and
-    caps_deck["deck"]["1"]["history"]["box"]==1) :
-    print("Test passed")
-
-else: print("Test failed")
+#print(caps_deck["deck"]["1"]["history"]["nextRecall"])
+#
+#if  (caps_deck["deck"]["1"]["history"]["responses"]["0"]["correctness"]==1 and
+#    caps_deck["deck"]["1"]["history"]["box"]==1) :
+#    print("Test passed")
+#
+#else: print("Test failed")

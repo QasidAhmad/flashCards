@@ -9,14 +9,14 @@ organises program structure and flow
 
 from selectNextCard import selectNextCard
 
-#from updateQuestionsHistory import updateQuestionHistory
+from updateQuestionHistory import updateQuestionHistory,getNextRecallInterval,updateBox
 from displayquestion import *
 
 
 def main():
     
     
-    deck = initialiseSession()
+    deck, file = initialiseSession()
     
     try:
         while True:
@@ -39,8 +39,8 @@ def main():
                 difficulty = askDifficulty()     #difficulty response
                       
                 giveFeedback(checkA,deck['deck'][nextQ]["card"]["answer"])  #gives feedback to the user
-                    
-                #updateQuestionsHistory(deck,number,time.time(),checkA[0],checkA[1],difficulty)
+                print(checkA)
+                updateQuestionHistory(deck=deck,file=file,questionID=nextQ,correctness=checkA[0],thinkingPeriod=checkA[1],difficulty=difficulty)
                 
                 showProgress(Quest, totalCards) #simple progress bar
                 

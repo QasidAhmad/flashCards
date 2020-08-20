@@ -78,9 +78,11 @@ def initialiseSession():
         createFromCSV()
         return initialiseSession()
     else:
-        with open(decksAvailable[int(response)-1], 'r') as fp:
+        filename=decksAvailable[int(response)-1]
+        with open(filename, 'r') as fp:
             questions = json.load(fp)
-        return questions
+        return questions, filename
+    #needs check of json file
         
 def numberOfCards(questions):    
     print("\nYou last accessed this deck X days/weeks ago. There are %d cards in this deck, X are new to you, Y are overdue. (other stats about the deck here). How many do you want to look at in this session?" % (len(questions)-1))
@@ -137,3 +139,9 @@ def endSession(totalCards):  #will show how well user did and give options to co
         pass
         # goes back to same while loop automatically
     
+def testingDisplay():
+    try:
+        endSession(10) #need to bypass user input
+        print("endSession pass")
+    except:
+        print ("endSession fail, expected: not to crash")

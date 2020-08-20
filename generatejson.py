@@ -12,6 +12,9 @@ import glob
 
 #initial read csv and save as a json file
 
+def createJSON(file,dict):
+    with open(file, 'w') as fp:
+        json.dump(dict, fp)
 
 def createFromCSV():
 
@@ -55,9 +58,7 @@ def createFromCSV():
     response=input('if relevant, Please type the following part of each question to be shown. e.g. <question>" is the capital city of which country?"\n')    
     data['meta']['followQ']=response  #follows every question in the list
     
-    with open("Decks/"+data['meta']['ID']+'.json', 'w') as fp:
-        json.dump(data, fp)
+    createJSON("Decks/"+data['meta']['ID']+'.json',data)
     
     print("\nDone!\n")
-    
     
