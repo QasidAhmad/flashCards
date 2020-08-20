@@ -21,7 +21,7 @@ def main():
     try:
         while True:
             totalCards = numberOfCards(deck['deck'])
-            #above is select session
+            #above is select details of the session
             
                 
             for Quest in range(totalCards):
