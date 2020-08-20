@@ -5,7 +5,7 @@ Created on Thu Aug 20 11:48:52 2020
 @author: syedq
 """
 import json
-#import generatejson
+import generatejson
 #from unittest.mock import Mock 
 #
 #def test_createJSON(self):
@@ -14,16 +14,22 @@ import json
 #    file = Mock()
 #    createJSON(file,testDict)
 
-def createJSON(file,dict):
-    with open(file, 'w') as fp:
-        json.dump(dict, fp)
+
 
 def test_createJSON():
+    
     testFile = "TestData/jsonCreationTest.json"
     testDict = {"testKey":"testVal"}
-    createJSON(testFile,testDict)
+    generatejson.createJSON(testFile,testDict)
     
-    dictFromJson = json.loads(testFile)
+    #TODO: test json file is actually created with dict in it
     
-    assert dictFromJson["testKey"] == "testVal"
+    
+    #dictFromJson = json.loads(testFile)
+    
+    # assumes previous file does not exist
+    #assert dictFromJson["testKey"] == "testVal"
+    #print (dictFromJson)
+
+test_createJSON()
 
