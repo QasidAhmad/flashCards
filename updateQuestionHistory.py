@@ -26,7 +26,8 @@ def updateBox(currentBox,maxBoxes,correctness, method="default"):
 
 
 def getNextRecallInterval (box):
-    boxIntervals = [timedelta(seconds=5),
+    boxIntervals = [timedelta(seconds=0),
+                    timedelta(seconds=5),
                     timedelta(seconds=25),
                     timedelta(minutes=2),
                     timedelta(minutes=10),
@@ -65,7 +66,7 @@ def updateQuestionHistory(deck,file,questionID, correctness,thinkingPeriod,diffi
 
 	#create new response entry
     newResponse = {"correctness":correctness,
-                   "datestamp":time.time(),
+                   "datestamp":int(time.time()),
                    "thinkingPeriod":thinkingPeriod,
                    "difficulty":difficulty}
     
