@@ -94,7 +94,7 @@ def numberOfCards(questions):
     return totalCards
 
 def enterToContinue():  #gives user chance to have a break or exit
-    print('\n\nPress "Enter" to continue')
+    print('\n\nPress "Enter" to continue (x to exit)')
     checkexit=input("")  #gives a chance to exit early
     if checkexit=="x":
         print('Goodbye...')
