@@ -21,7 +21,10 @@ def main():
     
     try:
         while True:
-            totalCards = numberOfCards(deck['deck'])
+            
+            deckStats(deck)
+            
+            totalCards = numberOfCards(deck)
 
             #above is select session #Q conflict
             
@@ -41,7 +44,7 @@ def main():
                 difficulty = askDifficulty()     #difficulty response
                       
                 giveFeedback(checkA,deck['deck'][nextQ]["card"]["answer"])  #gives feedback to the user
-                print(checkA)
+                #print(checkA)
                 updateQuestionHistory(deck=deck,file=file,questionID=nextQ,correctness=checkA[0],thinkingPeriod=checkA[1],difficulty=difficulty)
                 
                 showProgress(Quest, totalCards) #simple progress bar

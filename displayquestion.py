@@ -8,7 +8,29 @@ Created on Tue Aug 18 08:57:22 2020
 import random
 import time
 from generatejson import createFromCSV
+  
+def deckStats(deck):
+    total=[0,0,0,0,0,0,0,0]
+    overdue=0
+    now=time.time()
     
+    for card in deck['deck']:
+        if deck['deck'][card]['history']['box']==0:
+            total[0]+=1
+        for box in range(1,len(total)):
+            if deck['deck'][card]['history']['box']==box:
+                total[box]+=1
+                if deck['deck'][card]['history']['nextRecall']<now:
+                    overdue+=1
+    
+    print("There are " + str(len(deck['deck'])) + " cards in this deck")
+    print("You have " + str(total[0]) + " unviewed cards")
+    print("You have " + str(overdue) + " overdue cards")
+    for i in range(1,len(total)):
+        print("Box " + str(i) + " has " + str(total[i]) + " cards")
+    
+    return overdue, total
+            
 def askQuestion(deck, number):  #interface after card selector
     print(deck['meta']['baseQ'], end = '')
     print(deck['deck'][number]['card']['question'], end = '')
@@ -84,11 +106,12 @@ def initialiseSession():
         return questions, filename
     #needs check of json file
         
-def numberOfCards(questions):    
-    print("\nYou last accessed this deck X days/weeks ago. There are %d cards in this deck, X are new to you, Y are overdue. (other stats about the deck here). How many do you want to look at in this session?" % (len(questions)-1))
+def numberOfCards(deck):    
+    
+    print("\n How many cards do you want to look at in this session?")
     totalCards="-1"  
-    while (not(totalCards.isdigit()) or (int(totalCards))>(len(questions)-1) or (int(totalCards))<0):
-        totalCards=input("Please type a number between 1 and %d: " % (len(questions)-1))
+    while (not(totalCards.isdigit()) or (int(totalCards))>(len(deck['deck'])-1) or (int(totalCards))<0):
+        totalCards=input("Please type a number between 1 and %d: " % (len(deck['deck'])-1))
         
     totalCards=int(totalCards)
     return totalCards

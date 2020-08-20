@@ -5,37 +5,54 @@ from datetime import timedelta
 #import sendDeck
 from generatejson import createJSON
 
-def updateBox(currentBox,maxBoxes,correctness, method="default"):
+def updateBox(currentBox,maxBoxes,correctness,difficulty, method="default"):
     if method == "default":
-        if currentBox > maxBoxes:
-            print("Error: current box cant be greater than max boxes")
+        if currentBox > maxBoxes-1:
+            currentBox = maxBoxes-1
         else:
             if correctness == 1:
-                if currentBox == maxBoxes:
-                    updatedBox = currentBox
-                    print("Reached the last box, congrats")
+                    
                 if currentBox < maxBoxes:
                     updatedBox = currentBox + 1
+                if currentBox > maxBoxes-1:
+                    updatedBox = maxBoxes
+                    print("Reached the last box, congrats!")
             
             elif correctness == 0:
                 updatedBox = 0
+                
+    elif method == "incDifficulty":
+        
+        difficultyCorrection=int(max(3-difficulty/2,-1)) #move to higher box if too easy or don't move if complete guess
+        if currentBox > maxBoxes-1:
+            currentBox = maxBoxes-1
+        if correctness == 1:
+                
+            if currentBox < maxBoxes:
+                updatedBox = currentBox + 1 + difficultyCorrection
+            if updatedBox > maxBoxes-1:
+                updatedBox = maxBoxes-1
+                print("Reached the last box, congrats!")
+        
+        elif correctness == 0:
+            updatedBox = 1
     else: 
         print("Error: Unknown box updating method")
-        
+        updatedBox=0
     return updatedBox
 
 
 def getNextRecallInterval (box):
     boxIntervals = [timedelta(seconds=0),
-                    timedelta(seconds=5),
                     timedelta(seconds=25),
                     timedelta(minutes=2),
                     timedelta(minutes=10),
                     timedelta(hours=1),
                     timedelta(hours=5),
-                    timedelta(days=5)]
+                    timedelta(days=5),
+                    timedelta(days=100)]
     
-    return  boxIntervals[box].seconds
+    return  boxIntervals[box].total_seconds()
   
 
 def updateQuestionHistory(deck,file,questionID, correctness,thinkingPeriod,difficulty):
@@ -54,15 +71,13 @@ def updateQuestionHistory(deck,file,questionID, correctness,thinkingPeriod,diffi
     
     #update box number
     maxBoxes = 8 # todo: refactor to avoid this magic number
-    questionHistory["box"] = updateBox(questionHistory["box"],maxBoxes,correctness)
-  	
+    questionHistory["box"] = updateBox(questionHistory["box"],maxBoxes,correctness,difficulty,"incDifficulty")
+    print(questionHistory["box"])	
     #update next recall time replace with time.time() version to account for off by 1h error
-#    nextRecallInterval = getNextRecallInterval(questionHistory["box"])	
-#    nextRecall = datetime.datetime.now() + nextRecallInterval
-#    nextRecallSinceEpoc = nextRecall- datetime.datetime(1970,1,1)
-#    nextRecallSecsSinceEpoc= round(nextRecallSinceEpoc.total_seconds())
-    nextRecallSecsSinceEpoc=int(time.time()+getNextRecallInterval(questionHistory["box"]))
-    deck['deck'][str(questionID)]['history']['nextRecall'] = nextRecallSecsSinceEpoc
+
+    nextRecall=int(time.time()+getNextRecallInterval(questionHistory["box"]))
+    
+    deck['deck'][str(questionID)]['history']['nextRecall'] = nextRecall
 
 	#create new response entry
     newResponse = {"correctness":correctness,
