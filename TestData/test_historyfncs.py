@@ -15,8 +15,8 @@ from updateQuestionHistory import *
 
 def test_getNextRecallInterval():
     result = getNextRecallInterval(random.randrange(8))
-    assert type(result)==datetime.timedelta
-    assert result.seconds>-1
+    assert isinstance(result,int)
+    assert result>-1
     
 #test_getNextRecallInterval()
 

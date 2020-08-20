@@ -38,6 +38,7 @@ def createFromCSV():
     with open(csvAvailable[int(response)-1]) as csvfile:
         csvdata = csv.reader(csvfile)
         for idx, row in enumerate(csvdata):
+            idx=str(idx) ##this doesn't have to be numerical, it will be turned into a string anyway later
             data['deck'][idx]={'card': {}, 'history' : {}, 'prerequesites' : {}}
             data['deck'][idx]['card']['type']='multi'
             data['deck'][idx]['card']['question']=row[0]

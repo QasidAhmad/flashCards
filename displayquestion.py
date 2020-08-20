@@ -24,11 +24,11 @@ def askQuestion(deck, number):  #interface after card selector
             print(getRandomAnswer(deck['deck'], number))
     return(position+1)
     
-def getRandomAnswer(deck, number):  #pulls a random answer from elsewhere on the card to fill out the multiple choice
+def getRandomAnswer(deck, initcard):  #pulls a random answer from elsewhere on the card to fill out the multiple choice
     card=random.choice(list(deck.keys()))
     #print(card)
-    if ((card==number) or not(card.isdigit())):  #only accept answer if its a diferent, valid, card
-        return getRandomAnswer(deck, number)
+    if (card==initcard):  #only accept answer if its a diferent card
+        return getRandomAnswer(deck, initcard)
     else:
         return deck[card]['card']['answer']
         
@@ -102,9 +102,10 @@ def enterToContinue():  #gives user chance to have a break or exit
     
 def giveFeedback(checkA, answer):
     if checkA[0]:
-        print("Correct!, it took you %.1f seconds" % checkA[1])
+        
+        print("\033[37;42mCorrect!\033[m, it took you %.1f seconds" % checkA[1])
     else:
-        print("\nWrong!")
+        print("\n\033[37;41mWrong!\033[m")
         print("The Correct Answer was ", end = '')
         print(answer)
         
