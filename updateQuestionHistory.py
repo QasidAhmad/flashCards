@@ -1,5 +1,5 @@
-import json
-import datetime 
+#import json
+#import datetime 
 import time
 from datetime import timedelta
 #import sendDeck
@@ -26,7 +26,8 @@ def updateBox(currentBox,maxBoxes,correctness, method="default"):
 
 
 def getNextRecallInterval (box):
-    boxIntervals = [timedelta(seconds=5),
+    boxIntervals = [timedelta(seconds=0),
+                    timedelta(seconds=5),
                     timedelta(seconds=25),
                     timedelta(minutes=2),
                     timedelta(minutes=10),
@@ -34,9 +35,8 @@ def getNextRecallInterval (box):
                     timedelta(hours=5),
                     timedelta(days=5)]
     
-    return  boxIntervals[box]
-    
-    
+    return  boxIntervals[box].seconds
+  
 
 def updateQuestionHistory(deck,file,questionID, correctness,thinkingPeriod,difficulty):
     
@@ -56,16 +56,17 @@ def updateQuestionHistory(deck,file,questionID, correctness,thinkingPeriod,diffi
     maxBoxes = 8 # todo: refactor to avoid this magic number
     questionHistory["box"] = updateBox(questionHistory["box"],maxBoxes,correctness)
   	
-    #update next recall time
-    nextRecallInterval = getNextRecallInterval(questionHistory["box"])	
-    nextRecall = datetime.datetime.now() + nextRecallInterval
-    nextRecallSinceEpoc = nextRecall- datetime.datetime(1970,1,1)
-    nextRecallSecsSinceEpoc= round(nextRecallSinceEpoc.total_seconds())
+    #update next recall time replace with time.time() version to account for off by 1h error
+#    nextRecallInterval = getNextRecallInterval(questionHistory["box"])	
+#    nextRecall = datetime.datetime.now() + nextRecallInterval
+#    nextRecallSinceEpoc = nextRecall- datetime.datetime(1970,1,1)
+#    nextRecallSecsSinceEpoc= round(nextRecallSinceEpoc.total_seconds())
+    nextRecallSecsSinceEpoc=int(time.time()+getNextRecallInterval(questionHistory["box"]))
     deck['deck'][str(questionID)]['history']['nextRecall'] = nextRecallSecsSinceEpoc
 
 	#create new response entry
     newResponse = {"correctness":correctness,
-                   "datestamp":time.time(),
+                   "datestamp":int(time.time()),
                    "thinkingPeriod":thinkingPeriod,
                    "difficulty":difficulty}
     
